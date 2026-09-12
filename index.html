@@ -1,0 +1,2487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aurevia Capital - Ultra-Premium Company Investor Portal. Institutional-grade investor relations, real-time corporate finance metrics, valuation analysis, SEC disclosures, and portfolio intelligence.">
+  <meta name="keywords" content="Investor Relations, Corporate Finance, Aurevia Capital, Financial Reports, Valuation, Shareholder Portal, Portfolio Tracking">
+  <meta name="author" content="Aurevia Capital Global Markets">
+  <title>AUREVIA CAPITAL | Company Investor Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-obsidian">
+
+  <!-- ========================================================
+       1. AUTHENTICATION / LOGIN VIEW
+       ======================================================== -->
+  <div id="auth-view" class="auth-wrapper">
+    <div class="auth-ambient-glow auth-glow-1"></div>
+    <div class="auth-ambient-glow auth-glow-2"></div>
+    
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="brand-crest">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="44" height="44" rx="10" fill="url(#crest-grad)" />
+            <path d="M22 8L33 28H27L22 17L17 28H11L22 8Z" fill="#FFFFFF" />
+            <path d="M16 28L22 36L28 28H16Z" fill="#38BDF8" opacity="0.85" />
+            <defs>
+              <linearGradient id="crest-grad" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#1D4ED8"/>
+                <stop offset="1" stop-color="#0B0F17"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <h1 class="auth-brand-title">AUREVIA CAPITAL</h1>
+        <p class="auth-tagline">"Clarity for Investors. Confidence for Growth."</p>
+        <div class="auth-badge">Institutional Investor Relations Portal</div>
+      </div>
+
+      <form id="login-form" class="auth-form" onsubmit="return false;">
+        <div class="form-group">
+          <label for="login-email">Authorized Investor Email</label>
+          <div class="input-with-icon">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <input type="email" id="login-email" value="investor@aureviacapital.com" required placeholder="name@fund.com" autocomplete="email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="label-row">
+            <label for="login-password">Security Password</label>
+            <button type="button" class="btn-text" id="btn-forgot-password">Forgot Credentials?</button>
+          </div>
+          <div class="input-with-icon">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <input type="password" id="login-password" value="InstitutionalPass2026!" required placeholder="••••••••••••" autocomplete="current-password">
+          </div>
+        </div>
+
+        <div class="form-options">
+          <label class="custom-checkbox">
+            <input type="checkbox" id="login-remember" checked>
+            <span class="checkbox-box"></span>
+            <span class="checkbox-label">Keep Secure Session Active</span>
+          </label>
+          <span class="security-tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            256-bit Encrypted
+          </span>
+        </div>
+
+        <div class="auth-actions">
+          <button type="submit" id="btn-submit-login" class="btn btn-primary btn-block">
+            <span>Sign In to Portal</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+          <button type="button" id="btn-demo-login" class="btn btn-secondary btn-block">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>Enter Demo Workspace (Instant Access)</span>
+          </button>
+        </div>
+      </form>
+
+      <div class="auth-footer-meta">
+        <div class="meta-item">
+          <span class="dot-indicator online"></span>
+          <span>NYSE: AURV Live Data Feed</span>
+        </div>
+        <div class="meta-item">SEC Filings Synced Q4 2025</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       2. MAIN APPLICATION SHELL
+       ======================================================== -->
+  <div id="portal-view" class="portal-layout hidden">
+
+    <!-- Mobile Drawer Overlay -->
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside id="sidebar" class="portal-sidebar" aria-label="Main Navigation">
+      <!-- Sidebar Brand Header -->
+      <div class="sidebar-header">
+        <div class="brand-group">
+          <div class="brand-monogram">
+            <svg width="32" height="32" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="44" height="44" rx="10" fill="url(#side-crest-grad)" />
+              <path d="M22 8L33 28H27L22 17L17 28H11L22 8Z" fill="#FFFFFF" />
+              <path d="M16 28L22 36L28 28H16Z" fill="#38BDF8" opacity="0.85" />
+              <defs>
+                <linearGradient id="side-crest-grad" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#2563EB"/>
+                  <stop offset="1" stop-color="#0B0F17"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">AUREVIA</span>
+            <span class="brand-sub">CAPITAL PORTAL</span>
+          </div>
+        </div>
+        <button type="button" id="sidebar-collapse-btn" class="icon-button" title="Toggle Sidebar Width" aria-label="Toggle Sidebar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+      </div>
+
+      <!-- Verified Badge -->
+      <div class="sidebar-tier-badge">
+        <span class="pulse-dot"></span>
+        <span class="tier-label">Institutional Partner Tier</span>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="sidebar-nav" id="sidebar-nav">
+        <!-- Section Group: Core Overview -->
+        <div class="nav-group-label">INVESTOR RELATIONS</div>
+        <button type="button" class="nav-item active" data-view="overview">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span class="nav-text">Overview</span>
+          <span class="nav-badge highlight">Live</span>
+        </button>
+        <button type="button" class="nav-item" data-view="investment">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4"/><path d="M12 16V8"/></svg>
+          <span class="nav-text">Investment</span>
+          <span class="nav-badge">Score 94</span>
+        </button>
+        <button type="button" class="nav-item" data-view="company">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 7v14M21 7v14M6 11h2M6 15h2M10 11h2M10 15h2M14 11h2M14 15h2M18 11h2M18 15h2M9 3l3-2 3 2v4H9z"/></svg>
+          <span class="nav-text">Company</span>
+        </button>
+
+        <!-- Section Group: Financial Intelligence -->
+        <div class="nav-group-label">FINANCIAL INTELLIGENCE</div>
+        <button type="button" class="nav-item" data-view="financials">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span class="nav-text">Financials</span>
+        </button>
+        <button type="button" class="nav-item" data-view="performance">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          <span class="nav-text">Performance</span>
+          <span class="nav-badge">+18.7%</span>
+        </button>
+        <button type="button" class="nav-item" data-view="valuation">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/><circle cx="12" cy="12" r="10"/></svg>
+          <span class="nav-text">Valuation</span>
+          <span class="nav-badge">$4.8B</span>
+        </button>
+        <button type="button" class="nav-item" data-view="shares">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <span class="nav-text">Shares</span>
+          <span class="nav-badge highlight">$84.60</span>
+        </button>
+        <button type="button" class="nav-item" data-view="shareholders">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="nav-text">Shareholders</span>
+          <span class="nav-badge">18.4k</span>
+        </button>
+        <button type="button" class="nav-item" data-view="dividends">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+          <span class="nav-text">Dividends</span>
+          <span class="nav-badge">2.8%</span>
+        </button>
+
+        <!-- Section Group: Disclosures & Reports -->
+        <div class="nav-group-label">DISCLOSURES & CALENDAR</div>
+        <button type="button" class="nav-item" data-view="reports">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span class="nav-text">Reports</span>
+        </button>
+        <button type="button" class="nav-item" data-view="documents">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <span class="nav-text">Documents</span>
+        </button>
+        <button type="button" class="nav-item" data-view="earnings">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span class="nav-text">Earnings Calendar</span>
+          <span class="nav-badge">Q4</span>
+        </button>
+        <button type="button" class="nav-item" data-view="events">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span class="nav-text">Corporate Events</span>
+        </button>
+
+        <!-- Section Group: Communications -->
+        <div class="nav-group-label">COMMUNICATIONS</div>
+        <button type="button" class="nav-item" data-view="news">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1m2 13a2 2 0 0 1-2-2V7m2 13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+          <span class="nav-text">Investor News</span>
+        </button>
+        <button type="button" class="nav-item" data-view="updates">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span class="nav-text">Investor Updates</span>
+          <span class="nav-badge highlight">New</span>
+        </button>
+        <button type="button" class="nav-item" data-view="messages">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span class="nav-text">IR Messages</span>
+          <span class="nav-badge" id="sidebar-msg-badge">2</span>
+        </button>
+
+        <!-- Section Group: Portfolio & Personal -->
+        <div class="nav-group-label">INVESTOR SUITE</div>
+        <button type="button" class="nav-item" data-view="portfolio">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          <span class="nav-text">Portfolio Tracker</span>
+        </button>
+        <button type="button" class="nav-item" data-view="watchlist">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span class="nav-text">Watchlist</span>
+          <span class="nav-badge" id="sidebar-watchlist-count">5</span>
+        </button>
+        <button type="button" class="nav-item" data-view="risk">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span class="nav-text">Risk Overview</span>
+        </button>
+        <button type="button" class="nav-item" data-view="analytics">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span class="nav-text">Analytics</span>
+        </button>
+
+        <!-- Section Group: Preferences -->
+        <div class="nav-group-label">PREFERENCES</div>
+        <button type="button" class="nav-item" data-view="notifications">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="nav-text">Notifications</span>
+          <span class="nav-badge highlight" id="sidebar-notif-count">4</span>
+        </button>
+        <button type="button" class="nav-item" data-view="settings">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span class="nav-text">Settings</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar User Profile Card -->
+      <div class="sidebar-user-card">
+        <div class="user-avatar" id="sidebar-user-avatar">AV</div>
+        <div class="user-details">
+          <div class="user-name" id="sidebar-user-name">Alexander Vance</div>
+          <div class="user-role" id="sidebar-user-role">Managing Principal</div>
+        </div>
+        <button type="button" class="icon-btn-ghost" id="btn-quick-logout" title="Exit to Login" aria-label="Sign Out">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN BODY CONTENT AREA -->
+    <div class="portal-main-area">
+
+      <!-- TOP NAVIGATION BAR -->
+      <header class="top-nav" aria-label="Top Controls">
+        <div class="top-nav-left">
+          <button type="button" id="mobile-menu-btn" class="icon-button mobile-only" aria-label="Open Navigation">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+
+          <!-- Company / Entity Selector -->
+          <div class="company-selector-wrapper">
+            <label for="company-select" class="visually-hidden">Active Portfolio Entity</label>
+            <div class="selector-box">
+              <span class="entity-symbol">AURV</span>
+              <select id="company-select" class="company-select">
+                <option value="aurv-group" selected>Aurevia Capital Group Inc. (NYSE: AURV)</option>
+                <option value="aurv-tech">Aurevia Global Tech Strategies Fund</option>
+                <option value="aurv-infra">Aurevia Sustainable Infrastructure L.P.</option>
+                <option value="aurv-growth">Aurevia High-Yield Real Assets Fund</option>
+              </select>
+              <svg class="select-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+
+          <!-- Live Market Status Pill -->
+          <div class="market-status-pill">
+            <span class="live-beacon"></span>
+            <span class="market-ticker">NYSE: AURV</span>
+            <span class="market-val">$84.60</span>
+            <span class="market-trend up">▲ +$1.98 (+2.40%)</span>
+            <span class="market-session">Market Open</span>
+          </div>
+        </div>
+
+        <div class="top-nav-right">
+          <!-- Global Search Trigger Bar -->
+          <button type="button" id="top-search-trigger" class="global-search-btn" aria-label="Open Global Search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span class="search-placeholder">Search reports, metrics, news, filings...</span>
+            <kbd class="shortcut-kbd">Ctrl K</kbd>
+          </button>
+
+          <!-- Quick Action Dropdown Trigger -->
+          <div class="quick-action-container">
+            <button type="button" id="btn-quick-action" class="btn btn-primary btn-sm">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>Quick Action</span>
+            </button>
+            <div id="quick-action-menu" class="dropdown-menu hidden">
+              <div class="menu-header">Investor Quick Actions</div>
+              <button type="button" class="menu-item" data-action="quick-holding">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                <span>Add Portfolio Holding</span>
+              </button>
+              <button type="button" class="menu-item" data-action="quick-watchlist">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>Add Watchlist Company</span>
+              </button>
+              <button type="button" class="menu-item" data-action="quick-report">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <span>View Latest 10-Q Report</span>
+              </button>
+              <button type="button" class="menu-item" data-action="quick-register-event">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                <span>Register for AGM 2026</span>
+              </button>
+              <button type="button" class="menu-item" data-action="quick-generate-report">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Generate Executive Briefing</span>
+              </button>
+              <button type="button" class="menu-item" data-action="quick-send-msg">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <span>Message Investor Relations Desk</span>
+              </button>
+              <button type="button" class="menu-item" data-action="quick-note">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                <span>Add Investment Thesis Note</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Notification Bell -->
+          <div class="header-notif-container">
+            <button type="button" id="header-notif-btn" class="icon-button" aria-label="Notifications">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <span class="badge-count" id="header-notif-badge">4</span>
+            </button>
+            <div id="header-notif-dropdown" class="dropdown-menu notif-dropdown hidden">
+              <div class="dropdown-head">
+                <span class="head-title">Notifications</span>
+                <button type="button" class="btn-text-sm" id="btn-dropdown-mark-read">Mark all as read</button>
+              </div>
+              <div class="notif-dropdown-list" id="dropdown-notif-items">
+                <!-- Injected via script.js -->
+              </div>
+              <div class="dropdown-foot">
+                <button type="button" class="btn-view-all" id="btn-see-all-notifs">Open Full Notification Center &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Help / Documentation -->
+          <button type="button" class="icon-button" id="btn-portal-help" title="Help & IR Support" aria-label="Portal Help">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </button>
+
+          <!-- Top Profile Avatar Menu -->
+          <div class="top-profile-container">
+            <button type="button" id="top-profile-btn" class="profile-trigger" aria-label="Profile Menu">
+              <div class="avatar-circle">AV</div>
+              <span class="profile-name">A. Vance</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div id="top-profile-dropdown" class="dropdown-menu profile-dropdown hidden">
+              <div class="profile-dropdown-header">
+                <div class="full-name" id="dropdown-profile-name">Alexander Vance</div>
+                <div class="email-sub" id="dropdown-profile-email">investor@aureviacapital.com</div>
+                <span class="tier-pill">Tier 1 Institutional Partner</span>
+              </div>
+              <div class="dropdown-divider"></div>
+              <button type="button" class="menu-item" data-view-target="portfolio">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/></svg>
+                <span>My Portfolio ($1.25M)</span>
+              </button>
+              <button type="button" class="menu-item" data-view-target="settings">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82"/></svg>
+                <span>Account & Security Settings</span>
+              </button>
+              <button type="button" class="menu-item" id="btn-export-briefing">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Download Executive Briefing</span>
+              </button>
+              <div class="dropdown-divider"></div>
+              <button type="button" class="menu-item logout-item" id="btn-dropdown-logout">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                <span>Sign Out of Portal</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- VIEW CONTAINER: ACTIVE SECTION LOADS HERE -->
+      <main class="portal-content" id="portal-content">
+
+        <!-- ====================================================
+             VIEW 1: INVESTOR OVERVIEW DASHBOARD
+             ==================================================== -->
+        <section id="view-overview" class="view-panel active">
+          <!-- View Title Banner -->
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Institutional Portal &rsaquo; Executive Desk</div>
+              <h2 class="view-title">Investor Overview</h2>
+              <p class="view-subtitle">Track company performance, financial health and investment opportunities.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-refresh-overview">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                <span>Refresh Live Ticker</span>
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-print-summary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                <span>Print Briefing</span>
+              </button>
+              <button type="button" class="btn btn-primary btn-sm" id="btn-download-one-pager">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Download 1-Pager (PDF)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 8 Executive KPI Cards -->
+          <div class="kpi-grid">
+            <!-- 1. Company Valuation -->
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Company Valuation</span>
+                <span class="kpi-pill success">+8.4% YoY</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-number" id="kpi-valuation">$4.8B</span>
+                <canvas class="kpi-sparkline" id="spark-valuation" width="70" height="26"></canvas>
+              </div>
+              <div class="kpi-subtext">Enterprise Value: $5.12B | Target: $5.5B</div>
+            </div>
+
+            <!-- 2. Revenue -->
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Revenue (TTM)</span>
+                <span class="kpi-pill success">+18.7% YoY</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-number" id="kpi-revenue">$682M</span>
+                <canvas class="kpi-sparkline" id="spark-revenue" width="70" height="26"></canvas>
+              </div>
+              <div class="kpi-subtext">Q4 Target: $710M | Beat Est. by 4.2%</div>
+            </div>
+
+            <!-- 3. Annual Growth -->
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Annual Growth</span>
+                <span class="kpi-pill accent">+4.5% vs Peers</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-number" id="kpi-growth">18.7%</span>
+                <canvas class="kpi-sparkline" id="spark-growth" width="70" height="26"></canvas>
+              </div>
+              <div class="kpi-subtext">Peer Group Average: 14.2%</div>
+            </div>
+
+            <!-- 4. EBITDA -->
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">EBITDA (Adjusted)</span>
+                <span class="kpi-pill success">21.4% Margin</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-number" id="kpi-ebitda">$146M</span>
+                <canvas class="kpi-sparkline" id="spark-ebitda" width="70" height="26"></canvas>
+              </div>
+              <div class="kpi-subtext">+$24M expansion vs prior period</div>
+            </div>
+
+            <!-- 5. Share Price -->
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Share Price (AURV)</span>
+                <span class="kpi-pill success">+2.40% Today</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-number" id="kpi-share-price">$84.60</span>
+                <canvas class="kpi-sparkline" id="spark-share-price" width="70" height="26"></canvas>
+              </div>
+              <div class="kpi-subtext">52W Range: $58.10 – $89.40</div>
+            </div>
+
+            <!-- 6. Dividend Yield -->
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Dividend Yield</span>
+                <span class="kpi-pill neutral">Quarterly</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-number" id="kpi-dividend-yield">2.8%</span>
+                <canvas class="kpi-sparkline" id="spark-dividend" width="70" height="26"></canvas>
+              </div>
+              <div class="kpi-subtext">Annual payout: $2.36 / share</div>
+            </div>
+
+            <!-- 7. Investor Confidence -->
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Investor Confidence</span>
+                <span class="kpi-pill accent">Strong Buy</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-number" id="kpi-confidence">94%</span>
+                <canvas class="kpi-sparkline" id="spark-confidence" width="70" height="26"></canvas>
+              </div>
+              <div class="kpi-subtext">Consensus: 14 Buy / 2 Hold / 0 Sell</div>
+            </div>
+
+            <!-- 8. Shareholder Count -->
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Shareholder Base</span>
+                <span class="kpi-pill success">+1,240 Q/Q</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-number" id="kpi-shareholder-count">18,420</span>
+                <canvas class="kpi-sparkline" id="spark-shareholders" width="70" height="26"></canvas>
+              </div>
+              <div class="kpi-subtext">68.4% Institutional holdings</div>
+            </div>
+          </div>
+
+          <!-- Main Overview Chart & Split Row -->
+          <div class="grid-two-col mt-4">
+            <!-- Financial Performance Chart Card -->
+            <div class="card glass-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Revenue & Operating Margin Trajectory</h3>
+                  <p class="card-subtitle">Audited historical progression and FY 2026 outlook ($ in Millions)</p>
+                </div>
+                <div class="chart-controls">
+                  <div class="time-filter-group" id="overview-time-filters">
+                    <button type="button" class="filter-btn" data-range="1M">1M</button>
+                    <button type="button" class="filter-btn" data-range="3M">3M</button>
+                    <button type="button" class="filter-btn" data-range="6M">6M</button>
+                    <button type="button" class="filter-btn active" data-range="1Y">1Y</button>
+                    <button type="button" class="filter-btn" data-range="3Y">3Y</button>
+                    <button type="button" class="filter-btn" data-range="5Y">5Y</button>
+                  </div>
+                </div>
+              </div>
+              <div class="chart-canvas-container">
+                <canvas id="chart-overview-financials" width="700" height="280"></canvas>
+              </div>
+              <div class="chart-legend-row">
+                <div class="legend-item"><span class="legend-dot" style="background:#2563EB;"></span> Actual Revenue ($M)</div>
+                <div class="legend-item"><span class="legend-dot" style="background:#38BDF8;"></span> Operating EBITDA ($M)</div>
+                <div class="legend-item"><span class="legend-dot" style="background:#94A3B8; border-style:dashed;"></span> Consensus Target</div>
+              </div>
+            </div>
+
+            <!-- Capital Allocation & Strategic Radar -->
+            <div class="card glass-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Capital Allocation & Market Stance</h3>
+                  <p class="card-subtitle">Portfolio distribution & strategic liquidity status</p>
+                </div>
+                <span class="status-badge live">Audited Q4</span>
+              </div>
+              <div class="chart-canvas-container donut-container">
+                <canvas id="chart-overview-allocation" width="260" height="220"></canvas>
+                <div class="donut-legend-col" id="overview-allocation-legend">
+                  <!-- Generated by script -->
+                </div>
+              </div>
+              <div class="metric-list-preview mt-2">
+                <div class="preview-row">
+                  <span class="row-label">Free Cash Flow Conversion</span>
+                  <span class="row-val success">82.4%</span>
+                </div>
+                <div class="preview-row">
+                  <span class="row-label">Net Debt to EBITDA</span>
+                  <span class="row-val">1.1x (Investment Grade)</span>
+                </div>
+                <div class="preview-row">
+                  <span class="row-label">Return on Invested Capital (ROIC)</span>
+                  <span class="row-val success">17.2%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Row: Recent Filings + Upcoming IR Milestones -->
+          <div class="grid-two-col mt-4">
+            <div class="card glass-card">
+              <div class="card-header">
+                <h3 class="card-title">Recent Disclosures & Filings</h3>
+                <button type="button" class="btn-text-sm" data-nav="reports">View All Filings &rarr;</button>
+              </div>
+              <div class="compact-list" id="overview-recent-filings">
+                <!-- Injected via script.js -->
+              </div>
+            </div>
+
+            <div class="card glass-card">
+              <div class="card-header">
+                <h3 class="card-title">Corporate IR Calendar</h3>
+                <button type="button" class="btn-text-sm" data-nav="earnings">View Schedule &rarr;</button>
+              </div>
+              <div class="compact-list" id="overview-upcoming-events">
+                <!-- Injected via script.js -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 2: INVESTMENT OVERVIEW & SCORECARD
+             ==================================================== -->
+        <section id="view-investment" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Investment Thesis &rsaquo; Intelligence</div>
+              <h2 class="view-title">Investment Overview & Scorecard</h2>
+              <p class="view-subtitle">Executive thesis, quantitative factor grades, competitive moat, and analyst thesis notes.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-export-thesis">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Export Thesis PDF</span>
+              </button>
+              <button type="button" class="btn btn-primary btn-sm" id="btn-add-investment-note">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Add Investment Note</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Overall Investment Score Banner -->
+          <div class="composite-score-card">
+            <div class="score-circle-block">
+              <div class="big-score-ring">
+                <svg class="score-svg" viewBox="0 0 100 100">
+                  <circle class="score-track" cx="50" cy="50" r="42" />
+                  <circle class="score-fill" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="21" />
+                </svg>
+                <div class="score-inner-text">
+                  <span class="score-number">92</span>
+                  <span class="score-scale">/ 100</span>
+                </div>
+              </div>
+              <div class="score-meta">
+                <div class="score-grade-badge">AAA- Institutional Quality</div>
+                <div class="score-desc">Overall Composite Investment Rating</div>
+              </div>
+            </div>
+            <div class="score-breakdown-grid">
+              <div class="score-mini-card">
+                <span class="factor-name">Growth Score</span>
+                <span class="factor-val">92 / 100</span>
+                <div class="factor-bar"><div class="fill" style="width: 92%;"></div></div>
+                <span class="factor-sub">+18.7% CAGR Top Quartile</span>
+              </div>
+              <div class="score-mini-card">
+                <span class="factor-name">Profitability</span>
+                <span class="factor-val">88 / 100</span>
+                <div class="factor-bar"><div class="fill" style="width: 88%;"></div></div>
+                <span class="factor-sub">21.4% Adj. EBITDA Margin</span>
+              </div>
+              <div class="score-mini-card">
+                <span class="factor-name">Stability Score</span>
+                <span class="factor-val">95 / 100</span>
+                <div class="factor-bar"><div class="fill" style="width: 95%;"></div></div>
+                <span class="factor-sub">Low Beta 0.84 | Strong Balance Sheet</span>
+              </div>
+              <div class="score-mini-card">
+                <span class="factor-name">Innovation Score</span>
+                <span class="factor-val">91 / 100</span>
+                <div class="factor-bar"><div class="fill" style="width: 91%;"></div></div>
+                <span class="factor-sub">Proprietary FinTech & Deal Pipeline</span>
+              </div>
+              <div class="score-mini-card">
+                <span class="factor-name">Market Position</span>
+                <span class="factor-val">94 / 100</span>
+                <div class="factor-bar"><div class="fill" style="width: 94%;"></div></div>
+                <span class="factor-sub">Tier 1 Leader in Mid-Market PE</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Thesis Pillars Grid -->
+          <div class="thesis-grid mt-4">
+            <div class="card glass-card">
+              <div class="card-icon-pill">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </div>
+              <h3 class="card-title mt-2">Investment Thesis</h3>
+              <p class="text-body-muted">Aurevia Capital occupies a resilient, high-margin position bridging alternative capital management with proprietary algorithmic private market analytics. We deliver compounding returns with defensive downside protection.</p>
+              <ul class="clean-bullet-list mt-3">
+                <li>Predictable management fee recurring revenue (84% of topline)</li>
+                <li>Performance carry upside with 10-year track record of 22.4% Net IRR</li>
+                <li>Zero structural debt maturing prior to Q3 2031</li>
+              </ul>
+            </div>
+
+            <div class="card glass-card">
+              <div class="card-icon-pill">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <h3 class="card-title mt-2">Market Opportunity</h3>
+              <p class="text-body-muted">The global private markets AUM is expanding from $13.1T to a projected $21.5T by 2030. Aurevia's dedicated mid-market vehicles target underserved institutional allocators and family offices.</p>
+              <ul class="clean-bullet-list mt-3">
+                <li>Addressable allocator market expanding at 14.8% CAGR</li>
+                <li>New proprietary credit strategy launch in Q1 2026</li>
+                <li>Strategic presence across NYC, London, Zurich, Singapore</li>
+              </ul>
+            </div>
+
+            <div class="card glass-card">
+              <div class="card-icon-pill">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <h3 class="card-title mt-2">Competitive Moat</h3>
+              <p class="text-body-muted">Direct institutional sourcing relationships built over 12 years, proprietary Aurevia Vantage™ data analytics stack, and co-investment syndication power create substantial switching costs for capital partners.</p>
+              <ul class="clean-bullet-list mt-3">
+                <li>97.4% Limited Partner re-commitment rate</li>
+                <li>Patented proprietary deal screening software</li>
+                <li>Independent board governance with 75% non-executive directors</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Interactive Investment Notes (LocalStorage Persisted) -->
+          <div class="card glass-card mt-4">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Investor Thesis Notes & Memos</h3>
+                <p class="card-subtitle">Private analyst notes saved securely in your localized browser workspace.</p>
+              </div>
+              <div class="filter-actions-row">
+                <input type="text" id="filter-notes-input" class="table-search-input" placeholder="Search saved notes...">
+                <button type="button" class="btn btn-primary btn-sm" id="btn-quick-new-note">+ Create Note</button>
+              </div>
+            </div>
+            <div class="notes-grid" id="investment-notes-list">
+              <!-- Rendered via script.js -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 3: COMPANY OVERVIEW
+             ==================================================== -->
+        <section id="view-company" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Corporate Overview &rsaquo; Leadership</div>
+              <h2 class="view-title">Company Profile & Governance</h2>
+              <p class="view-subtitle">Founding vision, leadership board, corporate structure, and operational footprint.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-edit-company-details">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                <span>Edit Profile</span>
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-share-company">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                <span>Share Profile</span>
+              </button>
+              <button type="button" class="btn btn-primary btn-sm" id="btn-download-factsheet">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Download Factsheet</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Company Meta Card Grid -->
+          <div class="company-meta-grid">
+            <div class="meta-card">
+              <span class="meta-label">Corporate Entity</span>
+              <span class="meta-val" id="cp-name">Aurevia Capital Group Inc.</span>
+            </div>
+            <div class="meta-card">
+              <span class="meta-label">Industry Classification</span>
+              <span class="meta-val" id="cp-industry">Alternative Asset Mgmt & FinTech</span>
+            </div>
+            <div class="meta-card">
+              <span class="meta-label">Founded</span>
+              <span class="meta-val" id="cp-founded">2014 (12 Years Operating)</span>
+            </div>
+            <div class="meta-card">
+              <span class="meta-label">Global Headquarters</span>
+              <span class="meta-val" id="cp-hq">575 Fifth Avenue, New York, NY</span>
+            </div>
+            <div class="meta-card">
+              <span class="meta-label">Total Professionals</span>
+              <span class="meta-val" id="cp-employees">1,420 Across 6 Hubs</span>
+            </div>
+            <div class="meta-card">
+              <span class="meta-label">Audited Revenue (TTM)</span>
+              <span class="meta-val" id="cp-rev">$682,400,000</span>
+            </div>
+            <div class="meta-card">
+              <span class="meta-label">Chief Executive Officer</span>
+              <span class="meta-val" id="cp-ceo">Elena Rostova, Managing Principal</span>
+            </div>
+            <div class="meta-card">
+              <span class="meta-label">Regulatory Standing</span>
+              <span class="meta-val text-success">SEC Registered | FINRA / SIPC</span>
+            </div>
+          </div>
+
+          <!-- Mission & Core Business -->
+          <div class="grid-two-col mt-4">
+            <div class="card glass-card">
+              <h3 class="card-title">Mission & Institutional Mandate</h3>
+              <p class="text-body-muted mt-2" id="cp-mission">"To engineer resilient wealth and strategic liquidity through disciplined capital deployment, proprietary data analytics, and unyielding fiduciary alignment with global institutional partners."</p>
+              <div class="quote-box mt-3">
+                <span class="quote-text">"Clarity for Investors. Confidence for Growth."</span>
+                <span class="quote-author">&mdash; Elena Rostova, Founder & CEO</span>
+              </div>
+            </div>
+
+            <div class="card glass-card">
+              <h3 class="card-title">Core Business Strategy & Segments</h3>
+              <div class="business-segment-list mt-2">
+                <div class="seg-item">
+                  <div class="seg-icon">01</div>
+                  <div>
+                    <h4 class="seg-title">Private Equity Mid-Market Core</h4>
+                    <p class="seg-desc">Growth buyouts in software-enabled platforms, specialty logistics, and clean infrastructure.</p>
+                  </div>
+                </div>
+                <div class="seg-item">
+                  <div class="seg-icon">02</div>
+                  <div>
+                    <h4 class="seg-title">Strategic Credit & Yield Solutions</h4>
+                    <p class="seg-desc">First-lien senior secured lending with floating rate structures delivering 11.2% net yield.</p>
+                  </div>
+                </div>
+                <div class="seg-item">
+                  <div class="seg-icon">03</div>
+                  <div>
+                    <h4 class="seg-title">Aurevia Vantage™ Digital Platform</h4>
+                    <p class="seg-desc">Enterprise SaaS intelligence suite licensed to family offices and sovereign wealth funds.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Executive Leadership Team -->
+          <div class="card glass-card mt-4">
+            <div class="card-header">
+              <h3 class="card-title">Executive Leadership & Board of Directors</h3>
+              <span class="status-badge live">Independent Audit Committee</span>
+            </div>
+            <div class="leadership-grid" id="leadership-grid">
+              <!-- Rendered via script.js -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 4: FINANCIAL PERFORMANCE
+             ==================================================== -->
+        <section id="view-financials" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Financial Intelligence &rsaquo; Statements</div>
+              <h2 class="view-title">Financial Performance</h2>
+              <p class="view-subtitle">Audited income statement metrics, balance sheet liquidity, cash flow generation and margin health.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-export-financials-csv">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Export CSV Table</span>
+              </button>
+              <button type="button" class="btn btn-primary btn-sm" id="btn-download-audit-pdf">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <span>Download Audit Report</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Financial Statement Snapshot Cards -->
+          <div class="metric-strip-grid">
+            <div class="metric-strip-card">
+              <span class="m-label">Revenue (TTM)</span>
+              <span class="m-val">$682.4M</span>
+              <span class="m-delta up">▲ +18.7% YoY</span>
+            </div>
+            <div class="metric-strip-card">
+              <span class="m-label">Gross Profit</span>
+              <span class="m-val">$498.2M</span>
+              <span class="m-delta">73.0% Margin</span>
+            </div>
+            <div class="metric-strip-card">
+              <span class="m-label">Operating Profit</span>
+              <span class="m-val">$184.6M</span>
+              <span class="m-delta up">▲ +22.1% YoY</span>
+            </div>
+            <div class="metric-strip-card">
+              <span class="m-label">EBITDA</span>
+              <span class="m-val">$146.0M</span>
+              <span class="m-delta">21.4% Margin</span>
+            </div>
+            <div class="metric-strip-card">
+              <span class="m-label">Net Income</span>
+              <span class="m-val">$112.8M</span>
+              <span class="m-delta up">▲ +19.4% YoY</span>
+            </div>
+            <div class="metric-strip-card">
+              <span class="m-label">Operating Cash Flow</span>
+              <span class="m-val">$138.5M</span>
+              <span class="m-delta up">94.8% Conversion</span>
+            </div>
+            <div class="metric-strip-card">
+              <span class="m-label">Total Assets</span>
+              <span class="m-val">$5,240M</span>
+              <span class="m-delta">Tier 1 Capital</span>
+            </div>
+            <div class="metric-strip-card">
+              <span class="m-label">Total Liabilities</span>
+              <span class="m-val">$1,180M</span>
+              <span class="m-delta">Prudent Leverage</span>
+            </div>
+            <div class="metric-strip-card">
+              <span class="m-label">Shareholders' Equity</span>
+              <span class="m-val">$4,060M</span>
+              <span class="m-delta up">▲ +16.2% YoY</span>
+            </div>
+          </div>
+
+          <!-- Multi-Period Interactive Financial Statement Table -->
+          <div class="card glass-card mt-4">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Audited Consolidated Financial Statements</h3>
+                <p class="card-subtitle">Values presented in Millions USD ($M) under US GAAP standards</p>
+              </div>
+              <div class="filter-actions-row">
+                <select id="financial-statement-select" class="table-filter-select">
+                  <option value="income">Consolidated Income Statement</option>
+                  <option value="balance">Consolidated Balance Sheet</option>
+                  <option value="cashflow">Statement of Cash Flows</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="financial-table" id="financial-statement-table">
+                <!-- Dynamically populated in script.js -->
+              </table>
+            </div>
+          </div>
+
+          <!-- Cash Flow & Margin Visualizations -->
+          <div class="grid-two-col mt-4">
+            <div class="card glass-card">
+              <div class="card-header">
+                <h3 class="card-title">Operating Cash Flow vs Net Income</h3>
+                <span class="status-badge">Quarterly Trend</span>
+              </div>
+              <div class="chart-canvas-container">
+                <canvas id="chart-cashflow-comparison" width="550" height="240"></canvas>
+              </div>
+            </div>
+            <div class="card glass-card">
+              <div class="card-header">
+                <h3 class="card-title">Cost & Expense Structure Breakdown</h3>
+                <span class="status-badge">FY 2025</span>
+              </div>
+              <div class="chart-canvas-container">
+                <canvas id="chart-expense-breakdown" width="550" height="240"></canvas>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 5: REVENUE ANALYTICS
+             ==================================================== -->
+        <section id="view-performance" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Financial Intelligence &rsaquo; Analytics</div>
+              <h2 class="view-title">Revenue & Growth Analytics</h2>
+              <p class="view-subtitle">Detailed revenue segmentation across geographical jurisdictions, product divisions and client categories.</p>
+            </div>
+            <div class="view-header-actions">
+              <div class="time-filter-group" id="revenue-period-filters">
+                <button type="button" class="filter-btn active" data-period="2025">FY 2025</button>
+                <button type="button" class="filter-btn" data-period="2024">FY 2024</button>
+                <button type="button" class="filter-btn" data-period="forecast">2026 Forecast</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Revenue Analytics KPI Trio -->
+          <div class="grid-three-col">
+            <div class="kpi-card">
+              <span class="kpi-label">Current Audited Revenue</span>
+              <div class="kpi-value-row">
+                <span class="kpi-number">$682.4M</span>
+                <span class="kpi-pill success">+18.7%</span>
+              </div>
+              <div class="kpi-subtext">vs Previous Period: $574.8M (+$107.6M)</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">FY 2026 Target Target</span>
+              <div class="kpi-value-row">
+                <span class="kpi-number">$810.0M</span>
+                <span class="kpi-pill accent">Paced</span>
+              </div>
+              <div class="kpi-subtext">84.2% of target already locked under management contracts</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Net Retention Rate (NRR)</span>
+              <div class="kpi-value-row">
+                <span class="kpi-number">124.6%</span>
+                <span class="kpi-pill success">Best-in-Class</span>
+              </div>
+              <div class="kpi-subtext">Expansion across institutional LP mandates</div>
+            </div>
+          </div>
+
+          <!-- Revenue Breakdowns Grid -->
+          <div class="grid-two-col mt-4">
+            <!-- Revenue by Region -->
+            <div class="card glass-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Revenue by Geographic Jurisdiction</h3>
+                  <p class="card-subtitle">Diversified institutional capital presence</p>
+                </div>
+              </div>
+              <div class="chart-canvas-container donut-container">
+                <canvas id="chart-rev-region" width="240" height="220"></canvas>
+                <div class="donut-legend-col" id="legend-rev-region">
+                  <!-- Filled via script -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Revenue by Product Segment -->
+            <div class="card glass-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Revenue by Business Division</h3>
+                  <p class="card-subtitle">Management fees, performance carry & technology licensing</p>
+                </div>
+              </div>
+              <div class="chart-canvas-container donut-container">
+                <canvas id="chart-rev-product" width="240" height="220"></canvas>
+                <div class="donut-legend-col" id="legend-rev-product">
+                  <!-- Filled via script -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actual vs Target vs Forecast Trajectory Bar Chart -->
+          <div class="card glass-card mt-4">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Quarterly Revenue: Actual vs Target vs Street Consensus</h3>
+                <p class="card-subtitle">Consistent quarterly outperformance over consecutive reporting cycles</p>
+              </div>
+            </div>
+            <div class="chart-canvas-container">
+              <canvas id="chart-rev-forecast" width="700" height="260"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 6: COMPANY VALUATION
+             ==================================================== -->
+        <section id="view-valuation" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Valuation Intelligence &rsaquo; Multiples</div>
+              <h2 class="view-title">Company Valuation & Fair Value Model</h2>
+              <p class="view-subtitle">Market capitalization, enterprise multiples, discounted cash flow (DCF) framework and analyst fair value consensus.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-primary btn-sm" id="btn-download-valuation-deck">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Download Valuation Deck</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Valuation Metrics Grid -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-label">Enterprise Value (EV)</span>
+              <span class="kpi-number">$5.12B</span>
+              <div class="kpi-subtext">Net Debt: $320M</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Market Capitalization</span>
+              <span class="kpi-number">$4.80B</span>
+              <div class="kpi-subtext">56.74M Shares Outstanding</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">EV / Revenue Multiple</span>
+              <span class="kpi-number">7.03x</span>
+              <div class="kpi-subtext">Industry Median: 8.2x (Discounted)</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">EV / EBITDA Multiple</span>
+              <span class="kpi-number">32.8x</span>
+              <div class="kpi-subtext">Adjusted TTM basis</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Price / Earnings (P/E)</span>
+              <span class="kpi-number">28.4x</span>
+              <div class="kpi-subtext">Forward P/E: 22.8x</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Book Value Per Share</span>
+              <span class="kpi-number">$38.20</span>
+              <div class="kpi-subtext">Price to Book: 2.21x</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Estimated Fair Value</span>
+              <span class="kpi-number text-success">$96.50</span>
+              <div class="kpi-subtext">+14.1% upside to current $84.60</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Weighted WACC</span>
+              <span class="kpi-number">8.4%</span>
+              <div class="kpi-subtext">Cost of Equity: 9.8%</div>
+            </div>
+          </div>
+
+          <!-- Valuation Runway Visual Card -->
+          <div class="card glass-card mt-4">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Valuation Progression: Past, Present & Forward Projection</h3>
+                <p class="card-subtitle">Compounding enterprise value expansion trajectory ($ in Billions)</p>
+              </div>
+            </div>
+            <div class="valuation-runway">
+              <div class="runway-step">
+                <div class="step-badge">2023 Audited</div>
+                <div class="step-val">$3.60B</div>
+                <div class="step-multiple">6.2x EV/Rev</div>
+              </div>
+              <div class="runway-arrow">&rarr;</div>
+              <div class="runway-step">
+                <div class="step-badge">2024 Audited</div>
+                <div class="step-val">$4.20B</div>
+                <div class="step-multiple">6.8x EV/Rev</div>
+              </div>
+              <div class="runway-arrow">&rarr;</div>
+              <div class="runway-step active-step">
+                <div class="step-badge live">Current Value (Q4 2025)</div>
+                <div class="step-val">$4.80B</div>
+                <div class="step-multiple">7.03x EV/Rev</div>
+              </div>
+              <div class="runway-arrow">&rarr;</div>
+              <div class="runway-step">
+                <div class="step-badge forward">12-Month Base Target</div>
+                <div class="step-val">$5.48B</div>
+                <div class="step-multiple">7.5x Target Multiple</div>
+              </div>
+              <div class="runway-arrow">&rarr;</div>
+              <div class="runway-step">
+                <div class="step-badge forward">3-Year Vision (2028)</div>
+                <div class="step-val">$7.20B</div>
+                <div class="step-multiple">Strategic Scale</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DCF Sensitivity Analysis Matrix -->
+          <div class="card glass-card mt-4">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">DCF Fair Value Sensitivity Matrix (Terminal Growth vs WACC)</h3>
+                <p class="card-subtitle">Implied share price per share under varied economic regimes ($84.60 current reference)</p>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="sensitivity-table">
+                <thead>
+                  <tr>
+                    <th>WACC \ Terminal Growth</th>
+                    <th>2.0% Growth</th>
+                    <th>2.5% Growth</th>
+                    <th>3.0% (Base Case)</th>
+                    <th>3.5% Growth</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="row-lead">7.5% WACC</td>
+                    <td>$98.20</td>
+                    <td>$104.50</td>
+                    <td class="matrix-highlight">$112.00</td>
+                    <td>$121.40</td>
+                  </tr>
+                  <tr>
+                    <td class="row-lead">8.0% WACC</td>
+                    <td>$91.40</td>
+                    <td>$96.80</td>
+                    <td class="matrix-highlight">$103.20</td>
+                    <td>$110.60</td>
+                  </tr>
+                  <tr>
+                    <td class="row-lead">8.4% (Base Case)</td>
+                    <td>$86.10</td>
+                    <td>$90.80</td>
+                    <td class="matrix-base-target"><strong>$96.50 (Target)</strong></td>
+                    <td>$102.80</td>
+                  </tr>
+                  <tr>
+                    <td class="row-lead">9.0% WACC</td>
+                    <td>$79.80</td>
+                    <td>$83.90</td>
+                    <td class="matrix-highlight">$88.60</td>
+                    <td>$94.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 7: SHARE INFORMATION & PRICE CHART
+             ==================================================== -->
+        <section id="view-shares" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Market Data &rsaquo; Equity</div>
+              <h2 class="view-title">Share Information & Market Trading</h2>
+              <p class="view-subtitle">Real-time equity quotes, trading volume, moving averages, and historical candlestick price action.</p>
+            </div>
+            <div class="view-header-actions">
+              <span class="data-mode-badge">NYSE Real-Time Feed</span>
+            </div>
+          </div>
+
+          <!-- Share Price Header Dashboard -->
+          <div class="share-price-banner">
+            <div class="share-main-block">
+              <span class="ticker-large">NYSE: AURV</span>
+              <div class="price-giant-row">
+                <span class="price-giant" id="share-display-price">$84.60</span>
+                <span class="price-change-big up" id="share-display-change">▲ +$1.98 (+2.40%)</span>
+              </div>
+              <div class="market-time-stamp" id="share-timestamp">Market Closed • Feb 14, 4:00 PM EST • After-Hours: $84.75 (+0.18%)</div>
+            </div>
+            <div class="share-stats-pills">
+              <div class="stat-pill">
+                <span class="p-label">Day's Range</span>
+                <span class="p-val">$82.80 - $85.10</span>
+              </div>
+              <div class="stat-pill">
+                <span class="p-label">52-Week Range</span>
+                <span class="p-val">$58.10 - $89.40</span>
+              </div>
+              <div class="stat-pill">
+                <span class="p-label">Volume (Today)</span>
+                <span class="p-val">2,841,200</span>
+              </div>
+              <div class="stat-pill">
+                <span class="p-label">Avg 30D Volume</span>
+                <span class="p-val">2,410,000</span>
+              </div>
+              <div class="stat-pill">
+                <span class="p-label">Beta (5Y)</span>
+                <span class="p-val">0.84</span>
+              </div>
+              <div class="stat-pill">
+                <span class="p-label">Float</span>
+                <span class="p-val">44.8M Shares</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Share Price Chart -->
+          <div class="card glass-card mt-4">
+            <div class="card-header">
+              <div class="chart-header-left">
+                <h3 class="card-title">Historical Price Action & Volume</h3>
+                <div class="chart-type-toggles">
+                  <button type="button" class="btn-chart-type active" id="btn-chart-line">Line Area</button>
+                  <button type="button" class="btn-chart-type" id="btn-chart-candle">Candlestick</button>
+                </div>
+              </div>
+              <div class="time-filter-group" id="share-chart-filters">
+                <button type="button" class="filter-btn" data-time="1D">1D</button>
+                <button type="button" class="filter-btn" data-time="1W">1W</button>
+                <button type="button" class="filter-btn" data-time="1M">1M</button>
+                <button type="button" class="filter-btn" data-time="3M">3M</button>
+                <button type="button" class="filter-btn" data-time="6M">6M</button>
+                <button type="button" class="filter-btn active" data-time="1Y">1Y</button>
+                <button type="button" class="filter-btn" data-time="5Y">5Y</button>
+              </div>
+            </div>
+            <div class="chart-canvas-container">
+              <canvas id="chart-share-price" width="750" height="300"></canvas>
+            </div>
+            <div class="chart-volume-container">
+              <canvas id="chart-share-volume" width="750" height="70"></canvas>
+            </div>
+          </div>
+
+          <!-- Wall Street Analyst Consensus -->
+          <div class="grid-two-col mt-4">
+            <div class="card glass-card">
+              <div class="card-header">
+                <h3 class="card-title">Wall Street Analyst Recommendations</h3>
+                <span class="status-badge live">16 Coverage Analysts</span>
+              </div>
+              <div class="analyst-bar-wrapper">
+                <div class="analyst-bar">
+                  <div class="bar-buy" style="width: 81%;" title="81% Buy (13 Analysts)">81% Buy</div>
+                  <div class="bar-hold" style="width: 19%;" title="19% Hold (3 Analysts)">19% Hold</div>
+                  <div class="bar-sell" style="width: 0%;" title="0% Sell">0%</div>
+                </div>
+              </div>
+              <div class="analyst-targets-grid mt-3">
+                <div class="target-card">
+                  <span class="t-label">High Target</span>
+                  <span class="t-val text-success">$108.00</span>
+                  <span class="t-sub">+27.6% Upside</span>
+                </div>
+                <div class="target-card">
+                  <span class="t-label">Median Consensus</span>
+                  <span class="t-val text-accent">$96.50</span>
+                  <span class="t-sub">+14.1% Upside</span>
+                </div>
+                <div class="target-card">
+                  <span class="t-label">Low Target</span>
+                  <span class="t-val">$82.00</span>
+                  <span class="t-sub">-3.1% Downside</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card glass-card">
+              <div class="card-header">
+                <h3 class="card-title">Equity Trading Disclaimers</h3>
+              </div>
+              <p class="text-body-muted">Aurevia Capital common stock is listed on the New York Stock Exchange under ticker symbol <strong>AURV</strong>. CUSIP: 05284B104. Quotes and market data are refreshed with exchange direct connectivity.</p>
+              <div class="notice-callout mt-3">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>Demo financial numbers are simulated for executive platform demonstration purposes.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 8: SHAREHOLDER CENTER
+             ==================================================== -->
+        <section id="view-shareholders" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Corporate Governance &rsaquo; Registry</div>
+              <h2 class="view-title">Shareholder Center</h2>
+              <p class="view-subtitle">Ownership distribution, institutional roster, insider holdings, and proxy voting rights.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-export-shareholders">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Export Ownership Register</span>
+              </button>
+              <button type="button" class="btn btn-primary btn-sm" id="btn-add-shareholder">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Add Record</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Shareholder Distribution KPI Cards -->
+          <div class="grid-four-col">
+            <div class="kpi-card">
+              <span class="kpi-label">Total Shareholders</span>
+              <span class="kpi-number">18,420</span>
+              <div class="kpi-subtext">Registered Beneficiaries</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Institutional Holdings</span>
+              <span class="kpi-number">68.4%</span>
+              <div class="kpi-subtext">38,810,160 Shares</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Retail / Individual</span>
+              <span class="kpi-number">19.2%</span>
+              <div class="kpi-subtext">10,894,080 Shares</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Executive & Founders</span>
+              <span class="kpi-number">12.4%</span>
+              <div class="kpi-subtext">7,035,760 Shares (Vested)</div>
+            </div>
+          </div>
+
+          <!-- Search, Filter & Shareholder Table -->
+          <div class="card glass-card mt-4">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Major Institutional & Strategic Shareholders</h3>
+                <p class="card-subtitle">Form 13F filing disclosures updated for the trailing quarter</p>
+              </div>
+              <div class="filter-actions-row">
+                <input type="text" id="search-shareholders" class="table-search-input" placeholder="Search investor or fund...">
+                <select id="filter-shareholder-type" class="table-filter-select">
+                  <option value="all">All Ownership Types</option>
+                  <option value="Institutional">Institutional Asset Mgr</option>
+                  <option value="Sovereign">Sovereign Wealth Fund</option>
+                  <option value="Insider">Executive / Founder Trust</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table" id="shareholders-table">
+                <thead>
+                  <tr>
+                    <th>Shareholder Entity</th>
+                    <th>Classification</th>
+                    <th>Shares Held</th>
+                    <th>Ownership %</th>
+                    <th>Position Value</th>
+                    <th>Recent Change</th>
+                    <th>Filing Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="shareholders-table-body">
+                  <!-- Populated by script.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 9: DIVIDENDS
+             ==================================================== -->
+        <section id="view-dividends" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Capital Return &rsaquo; Dividends</div>
+              <h2 class="view-title">Dividend Center & History</h2>
+              <p class="view-subtitle">Quarterly distributions, historical payout track record, ex-dividend dates and payout stability.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-export-dividends-csv">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Export Tax History</span>
+              </button>
+              <button type="button" class="btn btn-primary btn-sm" id="btn-dividend-reinvestment">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                <span>DRIP Calculator</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Dividend KPI Banner -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-label">Annual Dividend Yield</span>
+              <span class="kpi-number text-accent">2.8%</span>
+              <div class="kpi-subtext">vs S&P 500 Avg: 1.5%</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Annualized Dividend</span>
+              <span class="kpi-number">$2.36</span>
+              <div class="kpi-subtext">$0.59 paid per quarter</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Next Announced Payout</span>
+              <span class="kpi-number text-success">$0.62</span>
+              <div class="kpi-subtext">+5.1% increase approved by board</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Ex-Dividend Date</span>
+              <span class="kpi-number">Feb 20, 2026</span>
+              <div class="kpi-subtext">Record Date: Feb 22, 2026</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Payment Date</span>
+              <span class="kpi-number">Mar 15, 2026</span>
+              <div class="kpi-subtext">Direct ACH / Wire Distribution</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Payout Ratio</span>
+              <span class="kpi-number">34.2%</span>
+              <div class="kpi-subtext">Highly sustainable from free cash flow</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Consecutive Growth</span>
+              <span class="kpi-number">6 Years</span>
+              <div class="kpi-subtext">Dividend Aristocrat Trajectory</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">5-Year Dividend CAGR</span>
+              <span class="kpi-number text-success">8.6%</span>
+              <div class="kpi-subtext">Inflation-hedging income growth</div>
+            </div>
+          </div>
+
+          <!-- Dividend History Table -->
+          <div class="card glass-card mt-4">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Historical Dividend Distributions</h3>
+                <p class="card-subtitle">Complete ledger of declared, recorded, and paid shareholder dividends</p>
+              </div>
+              <div class="filter-actions-row">
+                <select id="filter-dividend-year" class="table-filter-select">
+                  <option value="all">All Years</option>
+                  <option value="2026">2026</option>
+                  <option value="2025">2025</option>
+                  <option value="2024">2024</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table" id="dividend-history-table">
+                <thead>
+                  <tr>
+                    <th>Declaration Date</th>
+                    <th>Type</th>
+                    <th>Amount / Share</th>
+                    <th>Ex-Dividend Date</th>
+                    <th>Record Date</th>
+                    <th>Payment Date</th>
+                    <th>Status</th>
+                    <th>Receipt</th>
+                  </tr>
+                </thead>
+                <tbody id="dividend-table-body">
+                  <!-- Populated by script.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 10: FINANCIAL REPORTS
+             ==================================================== -->
+        <section id="view-reports" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Regulatory Filings &rsaquo; Disclosures</div>
+              <h2 class="view-title">Financial Reports & Filings</h2>
+              <p class="view-subtitle">Annual 10-K disclosures, quarterly 10-Q statements, earnings presentations and audited reports.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-open-report-generator">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82"/></svg>
+                <span>Report Generator</span>
+              </button>
+              <button type="button" class="btn btn-primary btn-sm" id="btn-download-all-filings">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Download Q4 Package</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Reports Filter & Search Bar -->
+          <div class="toolbar-card">
+            <div class="filter-pills-row" id="reports-category-filters">
+              <button type="button" class="filter-pill active" data-cat="all">All Reports (8)</button>
+              <button type="button" class="filter-pill" data-cat="Annual">Annual (10-K)</button>
+              <button type="button" class="filter-pill" data-cat="Quarterly">Quarterly (10-Q)</button>
+              <button type="button" class="filter-pill" data-cat="Presentation">Presentations</button>
+              <button type="button" class="filter-pill" data-cat="Statements">Statements</button>
+            </div>
+            <div class="search-box-right">
+              <input type="text" id="search-reports-input" class="table-search-input" placeholder="Search by report title or filing code...">
+            </div>
+          </div>
+
+          <!-- Reports Grid -->
+          <div class="reports-grid mt-4" id="reports-cards-grid">
+            <!-- Populated via script.js -->
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 11: DOCUMENT CENTER
+             ==================================================== -->
+        <section id="view-documents" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Legal & Compliance &rsaquo; Vault</div>
+              <h2 class="view-title">Investor Document Center</h2>
+              <p class="view-subtitle">Corporate governance charters, SEC exhibits, investor kits, audited tax circulars and compliance policies.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-primary btn-sm" id="btn-upload-doc-modal">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Add Custom Document</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Document Categories Strip -->
+          <div class="toolbar-card">
+            <div class="filter-pills-row" id="docs-category-filters">
+              <button type="button" class="filter-pill active" data-cat="all">All Documents</button>
+              <button type="button" class="filter-pill" data-cat="Governance">Governance</button>
+              <button type="button" class="filter-pill" data-cat="Presentations">Presentations</button>
+              <button type="button" class="filter-pill" data-cat="Legal">Legal & SEC</button>
+              <button type="button" class="filter-pill" data-cat="Statements">Statements</button>
+              <button type="button" class="filter-pill" data-cat="Favorites">Favorites ★</button>
+            </div>
+            <div class="search-box-right">
+              <input type="text" id="search-docs-input" class="table-search-input" placeholder="Search documents...">
+            </div>
+          </div>
+
+          <!-- Documents Table -->
+          <div class="card glass-card mt-4">
+            <div class="table-responsive">
+              <table class="data-table" id="documents-table">
+                <thead>
+                  <tr>
+                    <th>Favorite</th>
+                    <th>Document Name</th>
+                    <th>Category</th>
+                    <th>Filing Date</th>
+                    <th>Publisher / Owner</th>
+                    <th>File Format</th>
+                    <th>Size</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="docs-table-body">
+                  <!-- Populated via script.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 12: EARNINGS CALENDAR
+             ==================================================== -->
+        <section id="view-earnings" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; IR Events &rsaquo; Schedule</div>
+              <h2 class="view-title">Earnings Calendar & Webcasts</h2>
+              <p class="view-subtitle">Upcoming earnings releases, conference call access codes, dial-in information and quiet period dates.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-sync-calendar">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                <span>Export iCal (.ics)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Next Earnings Alert Callout -->
+          <div class="featured-event-banner">
+            <div class="event-glow"></div>
+            <div class="event-banner-content">
+              <div class="event-badge">NEXT MAJOR BROADCAST</div>
+              <h3 class="event-main-title">Q4 2025 Financial Results & FY 2026 Strategic Guidance</h3>
+              <p class="event-main-desc">Chief Executive Officer Elena Rostova and CFO Marcus Vance will host an audio webcast and live Q&A session with institutional analysts.</p>
+              <div class="event-meta-row">
+                <span class="meta-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/></svg> Tuesday, February 24, 2026</span>
+                <span class="meta-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 5:00 PM EST (Post-Market Close)</span>
+                <span class="meta-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Toll-Free Dial-in: +1 (800) 555-AURV</span>
+              </div>
+            </div>
+            <div class="event-banner-action">
+              <button type="button" class="btn btn-primary btn-lg" id="btn-banner-reminder" data-event-id="e-q4">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <span>Add Webcast Reminder</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Earnings Table -->
+          <div class="card glass-card mt-4">
+            <div class="card-header">
+              <h3 class="card-title">Earnings Schedule & Financial Releases</h3>
+              <div class="filter-actions-row">
+                <input type="text" id="search-earnings-input" class="table-search-input" placeholder="Search calendar events...">
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table" id="earnings-table">
+                <thead>
+                  <tr>
+                    <th>Date & Time</th>
+                    <th>Fiscal Period</th>
+                    <th>Event Description</th>
+                    <th>Dial-in / Link</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="earnings-table-body">
+                  <!-- Populated via script.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 13: CORPORATE EVENTS
+             ==================================================== -->
+        <section id="view-events" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; IR Events &rsaquo; Conferences</div>
+              <h2 class="view-title">Corporate Events & Summits</h2>
+              <p class="view-subtitle">Investor conferences, annual general meetings (AGM), fireside symposiums and capital markets forums.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-primary btn-sm" id="btn-add-event-custom">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Propose Meeting</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Events Grid -->
+          <div class="events-card-grid" id="corporate-events-grid">
+            <!-- Populated via script.js -->
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 14: INVESTOR NEWS
+             ==================================================== -->
+        <section id="view-news" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Press Desk &rsaquo; Wire</div>
+              <h2 class="view-title">Investor News & Press Releases</h2>
+              <p class="view-subtitle">Official corporate wire releases, strategic transaction announcements, and regulatory disclosures.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-subscribe-rss">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+                <span>Subscribe IR Wire</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- News Categories & Search -->
+          <div class="toolbar-card">
+            <div class="filter-pills-row" id="news-category-filters">
+              <button type="button" class="filter-pill active" data-cat="all">All News</button>
+              <button type="button" class="filter-pill" data-cat="Corporate">Corporate</button>
+              <button type="button" class="filter-pill" data-cat="Financial">Financial</button>
+              <button type="button" class="filter-pill" data-cat="Acquisitions">Acquisitions</button>
+              <button type="button" class="filter-pill" data-cat="Governance">Governance</button>
+            </div>
+            <div class="search-box-right">
+              <input type="text" id="search-news-input" class="table-search-input" placeholder="Search news wire...">
+            </div>
+          </div>
+
+          <!-- News Articles Grid -->
+          <div class="news-cards-grid mt-4" id="news-articles-grid">
+            <!-- Populated via script.js -->
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 15: INVESTOR UPDATES (CEO LETTERS)
+             ==================================================== -->
+        <section id="view-updates" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Executive Desk &rsaquo; Shareholder Letters</div>
+              <h2 class="view-title">Executive Investor Updates</h2>
+              <p class="view-subtitle">Direct letters from Founder & CEO Elena Rostova and the Executive Leadership Committee.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-mark-all-updates-read">Mark All as Read</button>
+            </div>
+          </div>
+
+          <!-- CEO Letters Stream -->
+          <div class="updates-stream" id="updates-stream-container">
+            <!-- Populated via script.js -->
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 16: PORTFOLIO TRACKER
+             ==================================================== -->
+        <section id="view-portfolio" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Investor Suite &rsaquo; Holdings</div>
+              <h2 class="view-title">Portfolio Tracker</h2>
+              <p class="view-subtitle">Personal institutional holdings ledger, cost basis, unrealized returns and capital allocation.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-export-portfolio">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Export Tax Ledger</span>
+              </button>
+              <button type="button" class="btn btn-primary btn-sm" id="btn-add-holding">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Add Holding</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Portfolio Summary Cards -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-label">Total Portfolio Value</span>
+              <span class="kpi-number text-accent" id="port-total-val">$1,248,500</span>
+              <div class="kpi-subtext">Cash Balance: $142,000</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Total Unrealized Gain</span>
+              <span class="kpi-number text-success" id="port-total-gain">+$284,150</span>
+              <div class="kpi-subtext" id="port-total-gain-pct">+29.4% Cumulative</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Today's P/L</span>
+              <span class="kpi-number text-success" id="port-day-gain">+$12,420</span>
+              <div class="kpi-subtext">+1.01% Intraday movement</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Annualized IRR Yield</span>
+              <span class="kpi-number text-accent">14.8%</span>
+              <div class="kpi-subtext">Dividend income: $34,950/yr</div>
+            </div>
+          </div>
+
+          <!-- Holdings Table -->
+          <div class="card glass-card mt-4">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Securities & Private Co-Invest Holdings</h3>
+                <p class="card-subtitle">Values updated with live pricing feeds and LocalStorage persistence</p>
+              </div>
+              <div class="filter-actions-row">
+                <input type="text" id="search-holdings-input" class="table-search-input" placeholder="Search holdings...">
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table" id="holdings-table">
+                <thead>
+                  <tr>
+                    <th>Security / Symbol</th>
+                    <th>Asset Class</th>
+                    <th>Shares Held</th>
+                    <th>Average Cost</th>
+                    <th>Current Price</th>
+                    <th>Market Value</th>
+                    <th>Total Return</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="holdings-table-body">
+                  <!-- Rendered via script.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 17: WATCHLIST
+             ==================================================== -->
+        <section id="view-watchlist" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Investor Suite &rsaquo; Watchlist</div>
+              <h2 class="view-title">Investor Watchlist</h2>
+              <p class="view-subtitle">Track comparative peer equities, subsidiary vehicles and prospective market opportunities.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-primary btn-sm" id="btn-add-watchlist-modal">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Add Symbol to Watchlist</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Watchlist Table -->
+          <div class="card glass-card mt-2">
+            <div class="card-header">
+              <h3 class="card-title">Tracked Securities & Vehicles</h3>
+              <div class="filter-actions-row">
+                <input type="text" id="search-watchlist-input" class="table-search-input" placeholder="Search watchlist...">
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table" id="watchlist-table">
+                <thead>
+                  <tr>
+                    <th>Company / Ticker</th>
+                    <th>Market Cap</th>
+                    <th>Price</th>
+                    <th>24h Change</th>
+                    <th>52W Range</th>
+                    <th>Analyst Consensus</th>
+                    <th>Volume</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="watchlist-table-body">
+                  <!-- Populated via script.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 18: RISK OVERVIEW & MATRIX
+             ==================================================== -->
+        <section id="view-risk" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Risk Management &rsaquo; Governance</div>
+              <h2 class="view-title">Enterprise Risk Overview & Matrix</h2>
+              <p class="view-subtitle">Comprehensive institutional factor assessment across market, liquidity, regulatory, and technology vectors.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-export-risk-dossier">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Export Risk Dossier</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 6 Risk Vector Score Cards -->
+          <div class="risk-cards-grid">
+            <div class="risk-card level-low">
+              <div class="r-top">
+                <span class="r-title">Market & Valuation Risk</span>
+                <span class="r-pill low">Low</span>
+              </div>
+              <p class="r-desc">Diversified asset base and low public market beta insulate fee cash flows.</p>
+              <div class="r-mitigation">Mitigation: 84% contracted recurring management fees.</div>
+            </div>
+            <div class="risk-card level-low">
+              <div class="r-top">
+                <span class="r-title">Financial & Liquidity Risk</span>
+                <span class="r-pill low">Low</span>
+              </div>
+              <p class="r-desc">Ample cash reserves and no senior debt maturity through 2031.</p>
+              <div class="r-mitigation">Mitigation: $380M liquid facility + $140M cash.</div>
+            </div>
+            <div class="risk-card level-medium">
+              <div class="r-top">
+                <span class="r-title">Operational Execution Risk</span>
+                <span class="r-pill medium">Moderate</span>
+              </div>
+              <p class="r-desc">Expanding footprint into EMEA and Asia requires disciplined talent retention.</p>
+              <div class="r-mitigation">Mitigation: Long-term equity partner carry vesting.</div>
+            </div>
+            <div class="risk-card level-medium">
+              <div class="r-top">
+                <span class="r-title">Regulatory & Compliance Risk</span>
+                <span class="r-pill medium">Moderate</span>
+              </div>
+              <p class="r-desc">Evolving SEC private fund rules and cross-border tax transparency.</p>
+              <div class="r-mitigation">Mitigation: In-house chief compliance officer and PwC audit.</div>
+            </div>
+            <div class="risk-card level-low">
+              <div class="r-top">
+                <span class="r-title">Technology & Cyber Risk</span>
+                <span class="r-pill low">Low</span>
+              </div>
+              <p class="r-desc">Protection of proprietary deal screening algorithms and LP portal data.</p>
+              <div class="r-mitigation">Mitigation: SOC 2 Type II certified, ISO 27001 compliant.</div>
+            </div>
+            <div class="risk-card level-medium">
+              <div class="r-top">
+                <span class="r-title">Competitive Landscape Risk</span>
+                <span class="r-pill medium">Moderate</span>
+              </div>
+              <p class="r-desc">Mega-cap asset managers entering middle-market lending space.</p>
+              <div class="r-mitigation">Mitigation: Direct proprietary deal origination network.</div>
+            </div>
+          </div>
+
+          <!-- Risk Matrix Heatmap & Registry -->
+          <div class="grid-two-col mt-4">
+            <div class="card glass-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">5x5 Risk Heat Matrix</h3>
+                  <p class="card-subtitle">Probability vs Impact Severity Distribution</p>
+                </div>
+              </div>
+              <div class="risk-matrix-wrapper">
+                <div class="matrix-axis-y">IMPACT &rarr;</div>
+                <div class="matrix-grid-5x5" id="risk-matrix-grid">
+                  <!-- Rendered via script.js -->
+                </div>
+                <div class="matrix-axis-x">PROBABILITY OF OCCURRENCE &rarr;</div>
+              </div>
+            </div>
+
+            <div class="card glass-card">
+              <div class="card-header">
+                <h3 class="card-title">Risk Mitigation Action Plan</h3>
+                <span class="status-badge">Supervised by Audit Committee</span>
+              </div>
+              <div class="compact-list" id="risk-action-list">
+                <!-- Rendered via script.js -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 19: INVESTOR ANALYTICS
+             ==================================================== -->
+        <section id="view-analytics" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Intelligence &rsaquo; Modeling</div>
+              <h2 class="view-title">Deep Investor Analytics</h2>
+              <p class="view-subtitle">Portfolio yield simulations, benchmark alpha attribution, and long-term compounding models.</p>
+            </div>
+          </div>
+
+          <!-- Analytics Charts Grid -->
+          <div class="grid-two-col">
+            <div class="card glass-card">
+              <div class="card-header">
+                <h3 class="card-title">Total Return Comparison vs Benchmarks</h3>
+                <span class="status-badge">5-Year Rolling Alpha</span>
+              </div>
+              <div class="chart-canvas-container">
+                <canvas id="chart-benchmark-alpha" width="550" height="250"></canvas>
+              </div>
+              <div class="chart-legend-row">
+                <div class="legend-item"><span class="legend-dot" style="background:#2563EB;"></span> Aurevia Total Return (+148%)</div>
+                <div class="legend-item"><span class="legend-dot" style="background:#94A3B8;"></span> S&P 500 Index (+84%)</div>
+              </div>
+            </div>
+
+            <div class="card glass-card">
+              <div class="card-header">
+                <h3 class="card-title">Dividend Compounding Growth (DRIP Simulation)</h3>
+                <span class="status-badge">10-Year Outlook</span>
+              </div>
+              <div class="chart-canvas-container">
+                <canvas id="chart-drip-projection" width="550" height="250"></canvas>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 20: INVESTOR MESSAGES (IR DESK)
+             ==================================================== -->
+        <section id="view-messages" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Communication &rsaquo; IR Desk</div>
+              <h2 class="view-title">Investor Relations Communication Desk</h2>
+              <p class="view-subtitle">Confidential direct messaging channel with executive officers, compliance counsel and the finance desk.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-primary btn-sm" id="btn-compose-message">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>New Inquiry</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Messages Shell -->
+          <div class="messages-container card glass-card">
+            <!-- Left Thread List -->
+            <div class="threads-sidebar">
+              <div class="threads-search-bar">
+                <input type="text" id="search-threads-input" class="table-search-input" placeholder="Search conversations...">
+              </div>
+              <div class="threads-list" id="threads-list">
+                <!-- Rendered via script.js -->
+              </div>
+            </div>
+
+            <!-- Right Active Thread View -->
+            <div class="active-thread-view">
+              <div class="thread-header" id="thread-header">
+                <div class="th-user-info">
+                  <div class="th-avatar" id="th-avatar">SJ</div>
+                  <div>
+                    <h4 class="th-name" id="th-name">Sarah Jenkins</h4>
+                    <span class="th-title" id="th-title">VP, Investor Relations</span>
+                  </div>
+                </div>
+                <div class="th-actions">
+                  <button type="button" class="btn-text-sm" id="btn-archive-thread">Archive</button>
+                  <button type="button" class="btn-text-sm text-danger" id="btn-delete-thread">Delete</button>
+                </div>
+              </div>
+
+              <!-- Message History Bubble Flow -->
+              <div class="thread-messages-scroll" id="thread-messages-scroll">
+                <!-- Populated via script.js -->
+              </div>
+
+              <!-- Composer -->
+              <form id="thread-composer-form" class="thread-composer" onsubmit="return false;">
+                <input type="text" id="message-reply-input" class="composer-input" placeholder="Type confidential message to Investor Relations..." required autocomplete="off">
+                <button type="submit" id="btn-send-reply" class="btn btn-primary btn-sm">
+                  <span>Send</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 21: NOTIFICATION CENTER
+             ==================================================== -->
+        <section id="view-notifications" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Preferences &rsaquo; Alerts</div>
+              <h2 class="view-title">Notification Center</h2>
+              <p class="view-subtitle">Real-time SEC disclosures, dividend declarations, compliance audits, and calendar alerts.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-center-mark-all-read">Mark All as Read</button>
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-center-clear-all">Clear All</button>
+            </div>
+          </div>
+
+          <div class="toolbar-card">
+            <div class="filter-pills-row" id="notif-category-filters">
+              <button type="button" class="filter-pill active" data-filter="all">All Notifications</button>
+              <button type="button" class="filter-pill" data-filter="unread">Unread Only</button>
+              <button type="button" class="filter-pill" data-filter="reports">Reports</button>
+              <button type="button" class="filter-pill" data-filter="dividends">Dividends</button>
+              <button type="button" class="filter-pill" data-filter="events">Events</button>
+            </div>
+          </div>
+
+          <div class="notifications-full-list mt-4" id="notifications-full-list">
+            <!-- Rendered via script.js -->
+          </div>
+        </section>
+
+        <!-- ====================================================
+             VIEW 22: SETTINGS
+             ==================================================== -->
+        <section id="view-settings" class="view-panel">
+          <div class="view-header-bar">
+            <div>
+              <div class="breadcrumb">Aurevia Capital &rsaquo; Portal Preferences &rsaquo; Configuration</div>
+              <h2 class="view-title">Account & Workspace Settings</h2>
+              <p class="view-subtitle">Manage investor credentials, display themes, notification routing, and localized data persistence.</p>
+            </div>
+            <div class="view-header-actions">
+              <button type="button" class="btn btn-primary btn-sm" id="btn-save-all-settings">Save Changes</button>
+            </div>
+          </div>
+
+          <div class="settings-grid">
+            <!-- Profile Info -->
+            <div class="card glass-card">
+              <h3 class="card-title">Investor Profile Information</h3>
+              <p class="card-subtitle">Official details displayed on audited transaction records</p>
+              <form id="settings-profile-form" class="mt-3">
+                <div class="form-group">
+                  <label for="set-name">Legal Full Name</label>
+                  <input type="text" id="set-name" class="form-input" value="Alexander Vance">
+                </div>
+                <div class="form-group">
+                  <label for="set-email">Institutional Email</label>
+                  <input type="email" id="set-email" class="form-input" value="investor@aureviacapital.com">
+                </div>
+                <div class="form-group">
+                  <label for="set-role">Investor Role / Designation</label>
+                  <input type="text" id="set-role" class="form-input" value="Managing Principal">
+                </div>
+                <div class="form-group">
+                  <label for="set-entity">Institutional Organization</label>
+                  <input type="text" id="set-entity" class="form-input" value="Vance Global Capital Partners LLC">
+                </div>
+              </form>
+            </div>
+
+            <!-- Display & Appearance -->
+            <div class="card glass-card">
+              <h3 class="card-title">Display & Appearance Controls</h3>
+              <p class="card-subtitle">Customise interface density, color palette, and micro-interactions</p>
+              <div class="settings-toggle-list mt-3">
+                <label class="toggle-row">
+                  <div>
+                    <span class="toggle-title">Compact Financial Density</span>
+                    <span class="toggle-desc">Reduces table padding for high-density terminal viewing</span>
+                  </div>
+                  <input type="checkbox" id="set-compact-mode" class="toggle-switch">
+                </label>
+
+                <label class="toggle-row">
+                  <div>
+                    <span class="toggle-title">Smooth Micro-Animations</span>
+                    <span class="toggle-desc">Enables fluid glass transitions and chart hover effects</span>
+                  </div>
+                  <input type="checkbox" id="set-animations-enabled" class="toggle-switch" checked>
+                </label>
+
+                <label class="toggle-row">
+                  <div>
+                    <span class="toggle-title">Auto-Collapse Sidebar</span>
+                    <span class="toggle-desc">Keeps sidebar collapsed to maximize chart analysis canvas</span>
+                  </div>
+                  <input type="checkbox" id="set-autocollapse-sidebar" class="toggle-switch">
+                </label>
+              </div>
+            </div>
+
+            <!-- Notifications Routing -->
+            <div class="card glass-card">
+              <h3 class="card-title">Alert & Filing Subscriptions</h3>
+              <p class="card-subtitle">Manage automated notifications dispatched to your investor desk</p>
+              <div class="settings-toggle-list mt-3">
+                <label class="toggle-row">
+                  <div>
+                    <span class="toggle-title">Instant SEC 8-K Disclosures</span>
+                    <span class="toggle-desc">Immediate alerts on material events & mergers</span>
+                  </div>
+                  <input type="checkbox" id="set-notif-8k" class="toggle-switch" checked>
+                </label>
+                <label class="toggle-row">
+                  <div>
+                    <span class="toggle-title">Dividend & Distribution Notices</span>
+                    <span class="toggle-desc">Payment confirmations and ex-dividend date alerts</span>
+                  </div>
+                  <input type="checkbox" id="set-notif-dividends" class="toggle-switch" checked>
+                </label>
+                <label class="toggle-row">
+                  <div>
+                    <span class="toggle-title">Earnings Webcast Reminders</span>
+                    <span class="toggle-desc">Reminders 24 hours and 1 hour before call starts</span>
+                  </div>
+                  <input type="checkbox" id="set-notif-events" class="toggle-switch" checked>
+                </label>
+              </div>
+            </div>
+
+            <!-- Data Management & LocalStorage -->
+            <div class="card glass-card">
+              <h3 class="card-title">Local Workspace & Data Controls</h3>
+              <p class="card-subtitle">Manage offline cache and local database persistence</p>
+              <div class="data-mgmt-actions mt-3">
+                <button type="button" class="btn btn-secondary btn-block" id="btn-export-backup-json">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span>Export Complete Workspace JSON</span>
+                </button>
+                <button type="button" class="btn btn-danger-ghost btn-block mt-2" id="btn-reset-demo-data">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                  <span>Reset All to Default Demo State</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- ====================================================
+           PORTAL FOOTER
+           ==================================================== -->
+      <footer class="portal-footer">
+        <div class="footer-inner">
+          <div class="footer-brand">
+            <span class="footer-brand-name">AUREVIA CAPITAL</span>
+            <span class="footer-tagline">"Clarity for Investors. Confidence for Growth."</span>
+          </div>
+          <div class="footer-links">
+            <a href="#" class="f-link" id="fl-ir">Investor Relations</a>
+            <a href="#" class="f-link" id="fl-privacy">Privacy</a>
+            <a href="#" class="f-link" id="fl-terms">Terms</a>
+            <a href="#" class="f-link" id="fl-support">Support</a>
+            <a href="#" class="f-link" id="fl-docs">Documentation</a>
+          </div>
+          <div class="footer-copy">
+            <span>&copy; 2026 AUREVIA CAPITAL. All rights reserved.</span>
+            <span class="footer-disclaimer">Demo financial data is simulated for interface demonstration purposes.</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       3. GLOBAL SEARCH PALETTE MODAL
+       ======================================================== -->
+  <div id="search-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-search-title">
+    <div class="modal-card search-modal-card">
+      <div class="search-modal-header">
+        <svg class="modal-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="global-search-input" class="modal-search-field" placeholder="Search reports, metrics, news, filings, events, or holdings..." autocomplete="off">
+        <button type="button" class="modal-close-icon" id="btn-close-search" aria-label="Close search">&times;</button>
+      </div>
+      <div class="search-results-container" id="search-results-container">
+        <!-- Live search results injected dynamically -->
+      </div>
+      <div class="search-modal-footer">
+        <span>Use <kbd>↑</kbd> <kbd>↓</kbd> to navigate, <kbd>Enter</kbd> to select, <kbd>ESC</kbd> to dismiss</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       4. REUSABLE GENERIC MODAL SYSTEM
+       ======================================================== -->
+  <!-- Generic Action Modal (Add Holding / Add Note / Watchlist / Register Event) -->
+  <div id="action-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card action-modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="action-modal-title">Action Title</h3>
+        <button type="button" class="modal-close-icon" id="btn-close-action-modal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body" id="action-modal-body">
+        <!-- Dynamically injected form -->
+      </div>
+      <div class="modal-footer" id="action-modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-action-cancel">Cancel</button>
+        <button type="button" class="btn btn-primary btn-sm" id="btn-action-submit">Confirm Action</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Document & Report Preview Modal -->
+  <div id="preview-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card preview-modal-card">
+      <div class="modal-header">
+        <div class="doc-header-meta">
+          <span class="preview-badge" id="preview-badge">Document Preview</span>
+          <h3 class="modal-title" id="preview-title">Document Title</h3>
+        </div>
+        <button type="button" class="modal-close-icon" id="btn-close-preview" aria-label="Close preview">&times;</button>
+      </div>
+      <div class="modal-body preview-modal-body" id="preview-body">
+        <!-- Content injected here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-preview-copy">Copy Text</button>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-preview-print">Print Document</button>
+        <button type="button" class="btn btn-primary btn-sm" id="btn-preview-download">Download File</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Report Generator Modal -->
+  <div id="generator-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card generator-modal-card">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title">Custom Investor Report Generator</h3>
+          <p class="modal-subtitle">Generate institutional-grade reports with custom formatting and time horizons.</p>
+        </div>
+        <button type="button" class="modal-close-icon" id="btn-close-generator">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="report-generator-form" onsubmit="return false;">
+          <div class="form-group">
+            <label for="gen-report-type">Report Classification</label>
+            <select id="gen-report-type" class="form-select">
+              <option value="summary">Executive Investor Summary</option>
+              <option value="financial">Consolidated Financial Statements</option>
+              <option value="shareholders">Shareholder Register & Cap Table</option>
+              <option value="dividends">Dividend Declaration & History</option>
+              <option value="portfolio">Personal Investor Portfolio Ledger</option>
+              <option value="risk">Comprehensive Risk & Compliance Dossier</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="gen-report-horizon">Time Horizon</label>
+            <select id="gen-report-horizon" class="form-select">
+              <option value="q4-2025">Trailing Quarter (Q4 2025)</option>
+              <option value="fy-2025">Full Year Audited (FY 2025)</option>
+              <option value="3-year">3-Year Historical & Multi-Year Model</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="gen-report-format">Output Format</label>
+            <select id="gen-report-format" class="form-select">
+              <option value="html">Interactive HTML Dossier (Instant)</option>
+              <option value="csv">Structured CSV Dataset</option>
+              <option value="text">Formatted Text Briefing</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-cancel-generator">Cancel</button>
+        <button type="button" class="btn btn-primary btn-sm" id="btn-execute-generate">Generate & Download</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Share Modal -->
+  <div id="share-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card action-modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Share Investor Resource</h3>
+        <button type="button" class="modal-close-icon" id="btn-close-share">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-body-muted">Share secure institutional link or dispatch an automated encrypted briefing to authorized colleagues.</p>
+        <div class="form-group mt-3">
+          <label for="share-link-input">Encrypted Access Link</label>
+          <div class="copy-input-row">
+            <input type="text" id="share-link-input" class="form-input" readonly value="https://portal.aureviacapital.com/investor/briefing?token=aurv-94812">
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-copy-share-link">Copy Link</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm" id="btn-close-share-btn">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Dialog Modal -->
+  <div id="confirm-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card confirm-modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="confirm-modal-title">Confirm Action</h3>
+        <button type="button" class="modal-close-icon" id="btn-close-confirm">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-body-muted" id="confirm-modal-desc">Are you sure you wish to proceed with this operation?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-confirm-cancel">Cancel</button>
+        <button type="button" class="btn btn-danger btn-sm" id="btn-confirm-proceed">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       5. TOAST NOTIFICATION CONTAINER
+       ======================================================== -->
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Core JavaScript File (Direct root, no folders) -->
+  <script src="script.js"></script>
+</body>
+</html>
